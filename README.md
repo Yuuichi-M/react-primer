@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+# React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## import、export の違い
 
-## Available Scripts
+### export
 
-In the project directory, you can run:
+- JavaScript ファイル内の特定の値を外部に公開すること
 
-### `npm start`
+- 名前つきエクスポート<br />
+  変数、関数、クラスを外部に公開したい場合、それぞれの値を
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```JS
+export { 変数名, クラス名, クラス名 }
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+のようにすることで、import を使って、export した値を読み込めるようにする
 
-### `npm test`
+又は、定義の先頭に「export」をつけて実装できる。
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```JS
+export const value = 'value2';
+export const func = function() {};
+export function func2() {}
+export class person {}
+```
 
-### `npm run build`
+- デフォルトエクスポート
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  - 1 つのファイル内でしか 1 回しか使えない
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```JS
+class value {}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+export default value;
+```
 
-### `npm run eject`
+```JS
+export default class value {}
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### import
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+ファイルの読み込みや export された値を読み込む機能のこと
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- 名前つき export を使っているか、デフォルト export を使っているかで<br />
+  import の書き方が変わる。
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- デフォルト export の場合
 
-## Learn More
+```JS
+//export.js
+export default class Person {}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```JS
+//import.js
+import Person from './export';
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- 名前つき export で公開される複数の値を読み込む場合
 
-### Code Splitting
+```JS
+import { Animal, Person } from './export';
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- オブジェクト,モジュール名のように書く方法
 
-### Analyzing the Bundle Size
+```JS
+import * as obj from './export';
+console.log(obj.Animal);
+console.log(obj.Person);
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- 2 種類の export を同時に import する方法
 
-### Making a Progressive Web App
+```JS
+//export.js
+export const func1 = () => {};
+export const func2 = () => {};
+export default class Animal {};
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```JS
+//import.js
+import Animal, { func1, func2 } from './export'
+```
 
-### Advanced Configuration
+## 【React】JSX の概要を理解する&必要最小限の環境に修正する
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```html
+class="" ではなく className=""
+```
